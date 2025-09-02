@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile.prod
     command: gunicorn -b 0.0.0.0:8000 workspace.wsgi:application
     volumes:
-      - static_volume:/home/app/web/staticfiles
-      - media_volume:/home/app/web/mediafiles
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
     expose:
       - 8000
     env_file:
@@ -25,8 +25,8 @@ services:
     image: nginx:latest
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - static_volume:/home/app/web/staticfiles
-      - media_volume:/home/app/web/mediafiles
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
     ports:
       - 1337:80
     depends_on:
@@ -36,4 +36,3 @@ volumes:
   pgdbdata:
   static_volume:
   media_volume:
-
